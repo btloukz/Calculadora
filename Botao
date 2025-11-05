@@ -1,5 +1,17 @@
 export default function Botao(props) {
     return (
-        <button onClick={props.onClick}>{props.numero}</button>
+        <button
+            onClick={props.onClick}
+            style={{
+                margin: '5px',
+                padding: '10px 20px',
+                borderRadius: '10px',
+                border: 'none',
+                backgroundColor: '#01082cff',
+                cursor: 'pointer'
+            }}
+        >
+            {props.numero}
+        </button>
     )
 }
