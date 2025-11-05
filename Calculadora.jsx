@@ -1,36 +1,51 @@
-import { useState } from 'react'
 import Botao from './Botao'
+import { useState } from 'react'
+import './index.css' // pra puxar o estilo
 
 export default function Calculadora() {
-    const [resultado, setResultado] = useState(0)   // resultado final
-    const [operacao, setOperacao] = useState("+")   // operação atual
-    const [valorAtual, setValorAtual] = useState(0) // número clicado pelo usuário
+    let numeros = [-1, 5, 2, 8, -4]
+    const [number, setNumber] = useState(0)
+    const [texto, setTexto] = useState("")
 
-    function calcular() {
-        if (operacao === "+") setResultado(resultado + valorAtual)
-        if (operacao === "-") setResultado(resultado - valorAtual)
+    function clicar(numero) {
+        setNumber(number + numero)
+    }
+
+    function valida() {
+        if (number > 120)
+            setTexto("Isso aí! É maior que 120, parabéns!")
+        else if (number === 120)
+            setTexto("Eu pedi maior que 120, não igual!")
+        else
+            setTexto("Isso é menor!")
     }
 
     return (
-        <>
-            <h3>Resultado: {resultado}</h3>
-            <p>Valor selecionado: {valorAtual}</p>
+        <div style={{ margin: '50px', textAlign: 'center' }}>
+            <h4>Incremento / Decremento</h4>
 
-            {/* Botões de números */}
-            {[1, 2, 3, 4, 5].map((num) => (
-                <Botao key={num} numero={num} onClick={() => setValorAtual(num)} />
+            {numeros.map((valor) => (
+                <Botao onClick={() => clicar(valor)} numero={valor} />
             ))}
 
             <br /><br />
+            <h4>{number}</h4>
+            <h4>Quero um número maior que 120...</h4>
 
-            {/* Escolha de operação */}
-            <button onClick={() => setOperacao("+")}>+</button>
-            <button onClick={() => setOperacao("-")}>-</button>
+            <button
+                onClick={valida}
+                style={{
+                    marginTop: '15px',
+                    padding: '8px 20px',
+                    borderRadius: '8px',
+                    backgroundColor: 'lightblue',
+                    border: 'none'
+                }} 
+            >
+                Validar
+            </button>
 
-            <br /><br />
-
-            {/* Executa cálculo */}
-            <button onClick={calcular}>=</button>
-        </>
+            <h4 style={{ marginTop: '20px' }}>{texto}</h4>
+        </div>
     )
 }
